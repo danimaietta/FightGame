@@ -9,6 +9,8 @@
 
 This is a game for professional purposes in order to increase my CV value
 
+This game is based in JS6, ReactJs with Hooks only!
+
 Daniel Maietta Esquivel, Soft Ing Developer!
 
 ### Sources

@@ -1,26 +1,20 @@
 import React from 'react'
 
-export default function HealthBar({ lifePoints, damage = 100, action = 'Idle' }){
+export default function HealthBar({ lifePoints, damage = 100, action = 'Idle'}){
 
     const TOTAL_BAR = 250
-    const [life, setLife] = React.useState(lifePoints)
-
-    console.count('HealthBar - action', action)
+    const [life, setLife] = React.useState(() => lifePoints)
  
     React.useEffect(() => {
-        if(action === 'Attack'){
-            const lifeLeft = (life - damage)
-            const id = window.setTimeout(() => {
-                (life !== lifeLeft) && setLife((l) => l - damage) // setLife((l) => l - 5)
-            }, 100)
-            return () => window.clearTimeout(id)
-        }
-       /* if(action === 'Attack'){
-            setLife((l) => l - damage)
-        }*/
-    }, [action])
+        const id = window.setTimeout(() => {
+            if(lifePoints !== life){
+                setLife((l) => l - 5)
+            }
+        }, 150)
+        return () => window.clearTimeout(id)   
+    }, [lifePoints, life])
 
-    const percentage = (life) => TOTAL_BAR * life / lifePoints
+    const percentage = (life) => TOTAL_BAR * life /  1000
 
     return (
         <div className="bar" style={{width:TOTAL_BAR}} >

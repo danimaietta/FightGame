@@ -5,8 +5,6 @@ function Actions({ attack }){
 
     const [frame, setFrame] = React.useState(1)
 
-    //console.count('Actions.js')
-
     return (
         <div className="action-container">
             <FaHandRock 

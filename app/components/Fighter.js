@@ -12,8 +12,7 @@ export default function Fighter({ player = 1, type = 'knight', action = 'Idle', 
                 changeAction('Idle')
                 setFrame(1)
             }
-          }, 90)
-      
+          }, 90)  
         return () => window.clearTimeout(id)
     }, [frame])
 

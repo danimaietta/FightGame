@@ -7,20 +7,41 @@ import soundfile, { soundManager } from './audio/soundtrack.mp3'
 
 function App() { 
 
-  window.soundManager.setup({ debugMode: false }) // No console.logs from <Sound/>
+  window.soundManager.setup({ debugMode: false }) // No console.logs from <Sound />
 
   const LIFE_POINTS = 1000
-  const [lifePoints, setLifePoints] = React.useState(LIFE_POINTS)
+  const [LP1, setLP1] = React.useState(LIFE_POINTS)
+  const [LP2, setLP2] = React.useState(LIFE_POINTS)
+
+  const applyAction = (action) => {
+    switch(action) {
+      case 'Attack':
+          setLP2((l) => l - 100)
+        break;
+      default:
+        console.log('Default')
+    }
+  }
 
   return (
     <>
       <Sound url={soundfile} playStatus={Sound.status.PAUSED} volume={5} />
       <div className="flex">
         <div className="start">
-          <Player lifePoints={lifePoints} numPlayer={1} type='knight' />
+          <Player 
+            lifePoints={LP1} 
+            numPlayer={1} 
+            type='knight' 
+            doAction={(action) => applyAction(action)} // setLP2((l) => l - 100)
+          />
         </div>
         <div className="end">
-          <Player lifePoints={lifePoints} numPlayer={2} type='adventuress' />
+          <Player 
+            lifePoints={LP2} 
+            numPlayer={2} 
+            type='adventuress' 
+            doAction={() => setLP1((l) => l - 100)}  
+          />
         </div>
       </div>
     </>
