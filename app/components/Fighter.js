@@ -1,18 +1,33 @@
 import React from 'react'
 
-export default function Fighter({ player = 1, type = 'knight', action = 'Idle', changeAction }){
+export default function Fighter({ player = 1, type = 'knight', action = 'Idle', changeAction, takeDamage }){
 
     const [frame, setFrame] = React.useState(1)
  
+    const getFrameByAction = () => {
+        if(takeDamage == true){
+            changeAction('Dead')
+            return 3
+        } else if(action === 'Attack' && type === 'adventuress'){
+            return 7
+        }else{
+            return 10
+        }    
+    }
+
     React.useEffect(() => {
         const id = window.setTimeout(() => {
-            if(frame !== 10){
-                setFrame((f) => f + 1)
-            }else{
-                changeAction('Idle')
-                setFrame(1)
+            try{
+                if(frame !== getFrameByAction()){
+                    setFrame((f) => f + 1)
+                }else{
+                    changeAction('Idle')
+                    setFrame(1)
+                }
+            }catch(error){
+                console.error('Error in Fighter: ', error)
             }
-          }, 90)  
+        }, 90)  
         return () => window.clearTimeout(id)
     }, [frame])
 

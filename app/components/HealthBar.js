@@ -10,7 +10,7 @@ export default function HealthBar({ lifePoints, damage = 100, action = 'Idle'}){
             if(lifePoints !== life){
                 setLife((l) => l - 5)
             }
-        }, 150)
+        }, 100)
         return () => window.clearTimeout(id)   
     }, [lifePoints, life])
 
