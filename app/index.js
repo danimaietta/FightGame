@@ -2,68 +2,68 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Player from './components/Player'
+import Fighter from './components/Fighter'
+import HealthBar from './components/HealthBar'
+import Actions from './components/Actions'
 import Sound from 'react-sound'
+import { StatusProvider } from './contexts/status'
 import soundfile, { soundManager } from './audio/soundtrack.mp3'
 
 function App() { 
 
+  // Initial setup
   window.soundManager.setup({ debugMode: false }) // No console.logs from <Sound />
-
   const LIFE_POINTS = 1000
-  const [LP1, setLP1] = React.useState(LIFE_POINTS)
-  const [LP2, setLP2] = React.useState(LIFE_POINTS)
 
-  const [takeDamage1, setTakeDamage1] =  React.useState(false)
-  const [takeDamage2, setTakeDamage2] =  React.useState(false)
-
-  const dealDamage = (action, player) =>{
-      if(action !== 'Idle'){
-        if(player === 1){
-          setLP2((l) => l - damageByAction(action))
-          setTakeDamage2(true)
-        }else{
-          setLP1((l) => l - damageByAction(action))
-          setTakeDamage1(true)
-        }
-      }else{
-        setTakeDamage2(false)
-        setTakeDamage1(false)
+  const [status, setStatus] = React.useState(
+    {
+      player1: {
+        lifePoints: LIFE_POINTS,
+        action: 'Idle'
+      },
+      player2: {
+        lifePoints: LIFE_POINTS,
+        action: 'Idle'
       }
     }
-    
+  )
 
-  const damageByAction = (action) => {
-    if(action === 'Attack') {
-      return 100
-    }else{
-      return 50
-    }
-  }
+  const updateStatus = (newStatus) => setStatus(newStatus)
 
   return (
-    <>
+    <StatusProvider value={status}>
       <Sound url={soundfile} playStatus={Sound.status.PAUSED} volume={5} />
       <div className="flex">
-        <div className="start">
-          <Player 
-            lifePoints={LP1} 
-            numPlayer={1}
+        <Player position="start">
+          <HealthBar lifePoints={status.player1.lifePoints} />
+          <Fighter 
             type='knight' 
-            doAction={(action) => dealDamage(action, 1)} 
-            takeDamage={takeDamage1}
+            player='player1' 
+            action={status.player1.action} 
+            updateStatus={updateStatus}
           />
-        </div>
-        <div className="end">
-          <Player 
-            lifePoints={LP2} 
-            numPlayer={2} 
+          <Actions 
+            player='player1'
+            playerAffected='player2'
+            updateStatus={updateStatus}
+          />
+        </Player>
+        <Player position="end">
+          <HealthBar lifePoints={status.player2.lifePoints} />
+          <Fighter 
             type='adventuress' 
-            doAction={(action) => dealDamage(action, 2)}
-            takeDamage={takeDamage2}
+            player='player2'
+            action={status.player2.action}
+            updateStatus={updateStatus}
           />
-        </div>
+          <Actions 
+            player='player2'
+            playerAffected='player1'
+            updateStatus={updateStatus}
+          />
+        </Player>
       </div>
-    </>
+    </StatusProvider>
   )
 }
 

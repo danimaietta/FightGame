@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function HealthBar({ lifePoints, damage = 100, action = 'Idle'}){
+function HealthBar({ lifePoints }){
 
     const TOTAL_BAR = 250
     const [life, setLife] = React.useState(() => lifePoints)
- 
+
     React.useEffect(() => {
         const id = window.setTimeout(() => {
             if(lifePoints !== life){
@@ -25,9 +25,6 @@ export default function HealthBar({ lifePoints, damage = 100, action = 'Idle'}){
     )
 }
 
-/*
-    Still pending on make to useCallback()
-*/
-/*export default React.memo(HealthBar, (prevProps, nextProps) => {
-    return prevProps.damage === nextProps.damage
-})*/
+export default React.memo(HealthBar, (prevProps, nextProps) => {
+    return prevProps.lifePoints === nextProps.lifePoints
+})
