@@ -47,7 +47,7 @@ export default function Fighter({ player = 'player1', type = 'knight', action = 
                 console.error('Error in Fighter:', error)
                 console.log('Error in frame: ', frame)
             }
-        }, (action === 'Dead' ? 600 : 150))  
+        }, (action === 'Dead' ? 600 : 80))  
         return () => {
             if(frame == framesByType()) {
                 setFrame(1)

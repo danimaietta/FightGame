@@ -15,17 +15,18 @@ function App() {
   window.soundManager.setup({ debugMode: false }) // No console.logs from <Sound />
   const LIFE_POINTS = 1000
 
-  const [status, setStatus] = React.useState(
-    {
-      player1: {
-        lifePoints: LIFE_POINTS,
-        action: 'Idle'
-      },
-      player2: {
-        lifePoints: LIFE_POINTS,
-        action: 'Idle'
+  const [status, setStatus] = React.useState(() => (
+      {
+        player1: {
+          lifePoints: LIFE_POINTS,
+          action: 'Idle'
+        },
+        player2: {
+          lifePoints: LIFE_POINTS,
+          action: 'Idle'
+        }
       }
-    }
+    )
   )
 
   const updateStatus = (newStatus) => setStatus(newStatus)
