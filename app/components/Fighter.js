@@ -9,13 +9,11 @@ export default function Fighter({ player = 'player1', type = 'knight', action = 
 
     const framesByType = () => {
         if(action === 'Idle'){
-            return 10
+            return 7
         } else if(action === 'Dead'){
-            return 4
-        }else if(action === 'Attack' && type === 'adventuress'){
-            return 6
-        }else if(action === 'Attack' && type === 'knight'){
-            return 6
+            return 7
+        }else if(action === 'Attack'){
+            return 7
         }else{
             console.log('no pense que hubiera un else')
         }
@@ -26,10 +24,11 @@ export default function Fighter({ player = 'player1', type = 'knight', action = 
             try{
                 //console.log(`framesByType: ${framesByType()}`)
                 if(frame < framesByType()){
-                    setFrame((f) => f + 1)
+                    //console.log(`${frame} ${action}`)
+                    setFrame((frame) => frame + 1)
                 } else {
-                    console.log(`${frame} ${action}`)
-                    setFrame(1)
+                    //console.log(`${frame} ${action}`)
+                    setFrame((f) =>  f - 1)
                     if(action !== 'Idle') {
                         updateStatus({
                             player1: {
@@ -47,7 +46,7 @@ export default function Fighter({ player = 'player1', type = 'knight', action = 
                 console.error('Error in Fighter:', error)
                 console.log('Error in frame: ', frame)
             }
-        }, (action === 'Dead' ? 600 : 80))  
+        }, (action === 'Dead' ? 1000 : 150))  
         return () => {
             if(frame == framesByType()) {
                 setFrame(1)

@@ -1,6 +1,6 @@
 {
-  "homepage": "https://danimaietta.github.io/FightGame/",
-  "name": "github-battle-hooks",
+  "homepage": "http://danimaietta.github.io/gh-page/FightGame",
+  "name": "fight-game",
   "version": "1.0.0",
   "description": "Project for TylerMcGinnis.com's React Hooks course.",
   "main": "index.js",
