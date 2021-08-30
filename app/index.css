@@ -1,0 +1,75 @@
+html, body, #app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+
+.invert { 
+  filter: invert(100%); 
+} 
+
+.flip-x{
+  transform: scaleX(-1);
+}
+
+.cover{
+  object-fit: cover;
+}
+
+/* Life Bar */
+.inline {
+  display: inline-block;
+}
+
+.flex{
+  display: flex;
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.bar{
+  border-radius: 25px;
+  border: 2px solid black;
+  background-color: lightgray;
+}
+
+.green{
+  border-radius: 25px;
+  background-color: green;
+}
+
+.solid-white{
+  color: whitesmoke;
+}
+
+.center-y{
+  align-content: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+i {
+ background-color: white;
+ border-radius: 50%;
+ border: 1x solid grey;
+ padding:10px;
+}
+
+.action-container{
+  height: 40px;
+  width: 300px;
+  border: 2px solid black;
+}
