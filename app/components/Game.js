@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import Player from './Player'
 import Fighter from './Fighter'
 import HealthBar from './HealthBar'
-import Actions from './Actions'
+import MemoActions from './Actions'
 import Sound from 'react-sound'
 import { StatusProvider } from '../contexts/status'
 import soundfile, { soundManager } from '../audio/soundtrack.mp3'
@@ -15,20 +15,24 @@ export default function Game() {
   const [status, setStatus] = React.useState(() => ({
     player1: {
       lifePoints: LIFE_POINTS,
-      action: 'Idle'
+      action: 'Idle',
+      turn: true
     },
     player2: {
       lifePoints: LIFE_POINTS,
-      action: 'Idle'
+      action: 'Idle',
+      turn: false
     }
   }))
 
-  const updateStatus = newStatus => setStatus(newStatus)
+  console.table(status, ['lifePoints', 'action', 'turn'])
+
+  const updateStatus = useCallback(newStatus => setStatus(newStatus))
 
   return (
     <StatusProvider value={status}>
       <Sound url={soundfile} playStatus={Sound.status.PAUSED} volume={5} />
-      <div className='flex'>
+      <div className='flex align-center'>
         <Player position='start'>
           <HealthBar lifePoints={status.player1.lifePoints} />
           <Fighter
@@ -37,7 +41,7 @@ export default function Game() {
             action={status.player1.action}
             updateStatus={updateStatus}
           />
-          <Actions
+          <MemoActions
             player='player1'
             playerAffected='player2'
             updateStatus={updateStatus}
@@ -51,7 +55,7 @@ export default function Game() {
             action={status.player2.action}
             updateStatus={updateStatus}
           />
-          <Actions
+          <MemoActions
             player='player2'
             playerAffected='player1'
             updateStatus={updateStatus}
@@ -61,3 +65,12 @@ export default function Game() {
     </StatusProvider>
   )
 }
+
+/* "./audio/08 BGM - Whoa I'm In Space Cuba.mp3".default */
+
+/*
+Sound.status.
+  PLAYING
+  PAUSED
+  STOPPED
+*/

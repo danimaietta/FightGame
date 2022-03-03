@@ -1,12 +1,7 @@
 import React from 'react'
 import StatusContext from '../contexts/status'
 
-export default function Fighter({
-  player = 'player1',
-  type = 'knight',
-  action = 'Idle',
-  updateStatus
-}) {
+function Fighter({ player = 'player1', type = 'knight', action = 'Idle', updateStatus }) {
   const status = React.useContext(StatusContext)
 
   const [frame, setFrame] = React.useState(1)
@@ -19,7 +14,7 @@ export default function Fighter({
     } else if (action === 'Attack') {
       return 7
     } else {
-      console.log('didnt though there would be an else in framesByType()')
+      console.log('didnt thought there would be an else in framesByType()')
     }
   }
 
@@ -38,11 +33,13 @@ export default function Fighter({
               updateStatus({
                 player1: {
                   lifePoints: status.player1.lifePoints,
-                  action: 'Idle'
+                  action: 'Idle',
+                  turn: status.player1.turn
                 },
                 player2: {
                   lifePoints: status.player2.lifePoints,
-                  action: 'Idle'
+                  action: 'Idle',
+                  turn: status.player1.turn
                 }
               })
             }
@@ -75,3 +72,5 @@ export default function Fighter({
     </>
   )
 }
+
+export default React.memo(Fighter)

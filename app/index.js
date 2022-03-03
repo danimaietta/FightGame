@@ -18,14 +18,6 @@ function App() {
 
 ReactDOM.render(<App />, document.getElementById('app'))
 
-/* "./audio/08 BGM - Whoa I'm In Space Cuba.mp3".default */
-
-/*
-  PLAYING
-  PAUSED
-  STOPPED
-*/
-
 /*
   All imgs tooked from https://www.gameart2d.com.html
 */
