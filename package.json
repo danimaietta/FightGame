@@ -34,7 +34,9 @@
     "react-dom": "^16.8.6",
     "react-icons": "^3.10.0",
     "react-router-dom": "^5.0.1",
-    "react-sound": "^1.2.0"
+    "react-sound": "^1.2.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

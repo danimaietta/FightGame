@@ -1,9 +1,9 @@
 import React from 'react'
-import StatusContext from '../contexts/status'
+import { useSelector, useDispatch } from 'react-redux'
 
-function Fighter({ player = 'player1', type = 'knight', action = 'Idle', updateStatus }) {
-  const status = React.useContext(StatusContext)
-
+function Fighter({ player = 'player1', type = 'knight', action = 'Idle' }) {
+  const status = useSelector(status => status)
+  const dispatch = useDispatch()
   const [frame, setFrame] = React.useState(1)
 
   const framesByType = () => {
@@ -30,18 +30,7 @@ function Fighter({ player = 'player1', type = 'knight', action = 'Idle', updateS
             //console.log(`${frame} ${action}`)
             setFrame(f => f - 1)
             if (action !== 'Idle') {
-              updateStatus({
-                player1: {
-                  lifePoints: status.player1.lifePoints,
-                  action: 'Idle',
-                  turn: status.player1.turn
-                },
-                player2: {
-                  lifePoints: status.player2.lifePoints,
-                  action: 'Idle',
-                  turn: status.player1.turn
-                }
-              })
+              dispatch({ type: 'IDLE' })
             }
           }
         } catch (error) {
