@@ -15,6 +15,8 @@ This game is based in JS6 and ReactJs with Hooks only!
 
 ### Sources
 
-The sprites where taken from: https://www.gameart2d.com.html
+The sprites were taken from: https://www.gameart2d.com.html
 
 The background music name is: 08 BGM - Whoa I'm In Space Cuba.mp3
+
+The background stage was taken from: https://www.reddit.com/r/StreetFighter/comments/669mr9/full_view_of_the_temple_hideout_stage_1920_x_1080/

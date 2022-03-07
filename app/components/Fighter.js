@@ -1,20 +1,24 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from "react"
+import { useSelector, useDispatch } from "react-redux"
 
-function Fighter({ player = 'player1', type = 'knight', action = 'Idle' }) {
+function Fighter({ player = "player1", type = "knight", action = "Idle" }) {
   const status = useSelector(status => status)
   const dispatch = useDispatch()
   const [frame, setFrame] = React.useState(1)
 
   const framesByType = () => {
-    if (action === 'Idle') {
+    if (action === "Idle") {
       return 7
-    } else if (action === 'Dead') {
+    } else if (action === "Dead") {
       return 7
-    } else if (action === 'Attack') {
+    } else if (action === "Attack") {
       return 7
+    } else if (action === "Jump") {
+      return 7
+    } else if (action === "Slide") {
+      return 4
     } else {
-      console.log('didnt thought there would be an else in framesByType()')
+      console.log("didnt thought there would be an else in framesByType()")
     }
   }
 
@@ -29,16 +33,20 @@ function Fighter({ player = 'player1', type = 'knight', action = 'Idle' }) {
           } else {
             //console.log(`${frame} ${action}`)
             setFrame(f => f - 1)
-            if (action !== 'Idle') {
-              dispatch({ type: 'IDLE' })
+            if (action !== "Idle") {
+              dispatch({ type: "IDLE" })
+            } else if (status.player1.lifePoints <= 0) {
+              dispatch({ type: "DEAD_P1" })
+            } else if (status.player2.lifePoints <= 0) {
+              dispatch({ type: "DEAD_P2" })
             }
           }
         } catch (error) {
-          console.error('Error in Fighter:', error)
-          console.log('Error in frame: ', frame)
+          console.error("Error in Fighter:", error)
+          console.log("Error in frame: ", frame)
         }
       },
-      action === 'Dead' ? 1000 : 150
+      action === "Dead" ? 1000 : 150
     )
     return () => {
       if (frame == framesByType()) {
@@ -50,9 +58,8 @@ function Fighter({ player = 'player1', type = 'knight', action = 'Idle' }) {
 
   return (
     <>
-      <p className='center'>{type}</p>
       <img
-        className={player === 'player2' ? 'flip-x' : ''}
+        className={player === "player2" ? "flip-x" : ""}
         src={require(`../sprites/${type}/${action} (${frame}).png`).default}
         alt={`not found`}
         width='400px'

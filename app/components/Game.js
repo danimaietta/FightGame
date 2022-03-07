@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react'
-import Player from './Player'
-import Fighter from './Fighter'
-import HealthBar from './HealthBar'
-import MemoActions from './Actions'
-import Sound from 'react-sound'
-import { useSelector } from 'react-redux'
-import soundfile, { soundManager } from '../audio/soundtrack.mp3'
+import React, { useCallback } from "react"
+import Player from "./Player"
+import Fighter from "./Fighter"
+import HealthBar from "./HealthBar"
+import ArmourBar from "./ArmourBar"
+import EvationBar from "./EvationBar"
+import MemoActions from "./Actions"
+import Sound from "react-sound"
+import { useSelector } from "react-redux"
+import soundfile, { soundManager } from "../audio/soundtrack.mp3"
 
 export default function Game() {
   // Initial setup
@@ -18,16 +20,21 @@ export default function Game() {
   return (
     <>
       <Sound url={soundfile} playStatus={Sound.status.PAUSED} volume={5} />
-      <div className='flex align-center'>
+      <h1 className='messages flex align-center'>{status.message}</h1>
+      <div className='screen flex align-center-bottom'>
         <Player position='start'>
           <HealthBar lifePoints={status.player1.lifePoints} />
+          <ArmourBar armourPoints={status.player1.armour} />
+          <EvationBar evationPoints={status.player1.evation} />
           <Fighter type='knight' player='player1' action={status.player1.action} />
-          <MemoActions player='player1' playerAffected='player2' />
+          <MemoActions player='player1' />
         </Player>
         <Player position='end'>
           <HealthBar lifePoints={status.player2.lifePoints} />
+          <ArmourBar armourPoints={status.player2.armour} />
+          <EvationBar evationPoints={status.player2.evation} />
           <Fighter type='adventuress' player='player2' action={status.player2.action} />
-          <MemoActions player='player2' playerAffected='player1' />
+          <MemoActions player='player2' />
         </Player>
       </div>
     </>
